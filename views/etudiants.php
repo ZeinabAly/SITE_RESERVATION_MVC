@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+<body>
+    <h1>Liste des étudiants</h1>
+    <ul>
+        <?php foreach ($etudiants as $etudiant): ?>
+            <li><?= htmlspecialchars($etudiant['nom']) ?></li>
+        <?php endforeach; ?>
+    </ul>
+</body>
+</html>
