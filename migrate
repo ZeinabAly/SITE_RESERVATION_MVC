@@ -1,0 +1,28 @@
+#!/usr/bin/php
+<?php
+
+// Charge ton autoloader fait maison
+require "./Core/Autoloader.php";
+require "./Core/Migrator.php";
+
+use App\Core\Autoloader;
+use App\Core\Migrator;
+use App\Migrations\create_users_table;
+
+Autoloader::register();
+
+
+// Migrator::run();
+
+$files = glob(__DIR__.'/Migrations/*.php'); // recherche tous les fichiers dans Migration
+
+foreach ($files as $file){
+    require_once $file;
+
+    // RECUPERER LA CLASSE A EXECUTER
+
+    $className = basename($file, '.php');
+    $migration = new create_users_table();
+    $migration->up();
+    echo 'yes';
+}

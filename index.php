@@ -1,17 +1,17 @@
 <?php
-require_once 'controllers/PageController.php';
+namespace App;
+// Point d'entrée principal de l'application, affiche dynamiquement la page demandée
+use App\Core\Autoloader;
+use App\Core\Router;
 
-$controller = new PageController();
 
-// Détermine la page à afficher
-$page = $_GET['page'] ?? 'home';
+// UTILISER LE JS POUR GERER LES REQUETES
 
-// Appelle la bonne méthode du contrôleur
-switch ($page) {
-    case 'about':
-        $controller->about();
-        break;
-    default:
-        $controller->home();
-        break;
-}
+require "./Core/Autoloader.php";
+Autoloader::register();
+
+use App\Core\Database;
+
+
+$router = new Router();
+$router->route();

@@ -1,0 +1,16 @@
+:root{
+    --primary: #296CF2;
+    --secondary: #448FF2;
+    --white1: #FFFFFF;
+    --tertiary: #5CB9F2;
+    --quaternary: #6CCED9;
+    --black1: #081226;
+    --black2: #06338d;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}

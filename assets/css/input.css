@@ -1,1 +1,459 @@
+@import url("navigation.css");
+@import url("settings.css");
+
 @import "tailwindcss";
+
+
+.primary_btn{
+    @apply text-xs bg-[var(--primary)] text-white px-4 py-2 rounded-md font-semibold hover:bg-[var(--secondary)] transition duration-400 cursor-pointer;
+}
+
+.sous_titre{
+    @apply text-sm font-semibold text-gray-600;
+}
+
+.section_titre{
+    @apply text-xl md:text-2xl font-extrabold text-[var(--black1)] uppercase m-0;
+    span{
+        @apply text-[var(--primary)];
+    }
+}
+
+/* NAVIGATION */
+
+/*************** DEBUT NAVIGATION ****************/
+
+#navigation {
+    /* TOPHEAD */
+    @apply w-full z-10 relative top-0 left-0;
+
+    .tophead{
+        @apply bg-[var(--primary)]/60 flex justify-between items-center px-7 py-2 border-b border-gray-700/30;
+    }
+
+
+    .tophead .contacts{
+        @apply flex justify-center items-center gap-5;
+    }
+
+    .tophead .icones_sociaux{
+        @apply flex justify-between items-center gap-2;
+    }
+
+
+    .tophead .icones_sociaux .icon{
+        @apply w-5 h-5 text-center text-[12px] p-2 rounded-full bg-[var(--white1)]/90 text-[var(--primary)] hover:bg-[var(--secondary)] hover:text-white cursor-pointer border-1 border border-[var(--white1)]/70 shadow-sm transition duration-400 flex justify-center items-center;
+    }
+    .tophead .contact_links{
+        @apply flex justify-center items-center gap-3;
+    }
+    .tophead .contact_links .ct_link{
+        @apply flex justify-center items-center gap-1 font-semibold text-xs text-[var(--white1)]/90 hover:text-[var(--tertiary)] transition duration-400;
+    }   
+    .tophead .langues-login{
+        @apply flex justify-center items-center gap-4;
+    }
+    .tophead .langues-login .lang select{
+        @apply px-1 py-1 rounded-md border border-[var(--white1)]/70 text-white text-xs font-medium cursor-pointer outline-none text-xs;
+    }
+    .tophead .langues-login .login{
+        @apply flex justify-center items-center gap-1 hidden md:flex;
+    }
+    .tophead .langues-login .login_btn{
+        @apply px-1 py-1 rounded-md text-white text-sm font-medium cursor-pointer outline-none text-xs flex justify-center items-center gap-1 hover:bg-[var(--secondary)] transition duration-400;
+    }
+    .tophead .langues-login .log_icon{
+        @apply text-white text-xs;
+    }
+
+    /* LES LIENS DE NAVIGATION */
+    .logo_navs{
+        @apply flex justify-between items-center px-5 py-3 bg-white;
+    }
+    .links-button{
+        @apply flex items-center justify-center gap-5;
+    }
+    .navlinks{
+        @apply flex items-center gap-5;
+    }
+    .grand_ecrans.navlinks{
+        @apply md:flex hidden;
+    }
+    .navlinks .link{
+        @apply relative py-2 text-[var(--black2)] font-semibold hover:text-[var(--primary)] transition duration-400 cursor-pointer text-[10px] font-semibold uppercase;
+    }
+
+    .navlinks .activeLink{
+        @apply relative py-2 text-[var(--primary)] font-semibold hover:text-[var(--primary)] transition duration-400 cursor-pointer text-[10px] font-semibold uppercase;
+    }
+
+    .navlinks .activeLink a, .navlinks .link a{
+        @apply flex gap-1 justify-center items-center;
+    }
+
+    .navlinks .link::after{
+        content: '';
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-block: 1px solid var(--primary);
+        transform: scale(0);
+        transition: .4s;
+    }
+
+    .navlinks .activeLink::after{
+        content: '';
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-block: 1px solid var(--primary);
+    }
+
+    .navlinks .link:hover.link::after{
+        transform: scale(1);
+    }
+
+    .logo_navs .logo img.logo_img{
+        @apply w-[60px] h-[60px] object-cover;
+    }
+}
+
+/*************** FIN NAVIVATION ******************/
+
+
+
+/******************* LOGIN PAGE ***********************/
+.loginPageContent{
+    .tophead{
+        @apply bg-[var(--primary)] !important;
+    }
+}
+
+#login_page{
+    @apply bg-gray-200 min-h-screen flex items-center justify-center;
+
+    .form{
+        @apply bg-white text-gray-500 max-w-[340px] w-full mx-4 md:p-6 p-4 py-8 text-left text-sm rounded-lg shadow-[0px_0px_10px_0px] shadow-black/10 flex flex-col gap-3;
+    }
+    .title{
+        @apply text-2xl font-bold mb-9 text-center text-gray-800;
+    }
+    .input_group{
+        @apply flex items-center border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2;
+        .input{
+            @apply w-full outline-none bg-transparent py-2.5;
+        }
+    }
+    .btn_creer{
+        @apply w-full mb-3 bg-[var(--primary)] hover:bg-[var(--secondary)] transition-all duration-400 cursor-pointer py-2.5 rounded text-white font-medium;
+    }
+}
+/******************* FIN LOGIN PAGE ***********************/
+
+
+/*************** PAGE HOME *******************/
+#home_page{
+    /* DEBUT HEADER */
+    .header_section{
+        @apply h-[400px] relative;
+
+        .header_section_content{
+            @apply h-full w-full text-center gap-5 flex flex-col justify-center items-center bg-blue-900/50;
+        }
+        .header_section_content .navigation{
+            @apply w-full;
+        }
+    
+        .banniere{
+            @apply w-full h-[400px];
+        }
+    
+        .banniere_img{
+            @apply absolute top-0 left-0 w-full h-full object-cover;
+            z-index: -1;
+            filter: blur(1px) brightness(20%);
+            /* filter: brightness(20%); */
+        }
+    
+        .banniere .banniere_content{
+            @apply mt-10 text-white flex flex-col justify-center items-center gap-5;
+        }
+    
+        .banniere_content .banniere_title{
+            @apply text-white text-2xl md:text-4xl font-bold;
+        }
+        .banniere_content .banniere_text{
+            @apply max-w-[50%] text-gray-400 text-xs md:text-sm font-semibold
+        }
+        
+        .banniere_content .banniere_btn{
+            @apply bg-[var(--primary)] text-white px-5 py-2 rounded-md font-semibold hover:bg-[var(--secondary)] transition duration-400 cursor-pointer;
+        }
+
+    }
+    /* FIN HEADER */
+
+
+    /* DEBUT SEARCH SECTION */
+    .search_section{
+        @apply w-[80%] h-auto mx-auto bg-white border-2 border-yellow-600 p-3 rounded-md shadow-md -mt-10 relative z-2 flex justify-center items-center;
+        
+        .search_form{
+            @apply w-full flex flex-col justify-center items-center gap-3;
+        }
+        .form_content{
+            @apply w-full flex justify-center items-center gap-2 flex-wrap;
+        }
+        .search_form .input_group input, .search_form .input_group select{
+            @apply w-full px-3 py-2 border border-blue-400 rounded-md outline-none text-[12px];
+        }
+        .search_form .input_group{
+            @apply bg-[var(--black2)]/10 px-3 py-2 rounded-md text-xs text-blue-900 font-semibold flex-1;
+        }
+    }
+    /* FIN SEARCH SECTION */
+
+    /* MAIN CONTENT */
+    .main_content{
+        @apply w-[100%] bg-gray-100 mx-auto pt-40 pb-10 flex flex-col justify-center items-center gap-10 relative;
+        
+        /* SECTION 1 */
+        .section1{
+            @apply w-[80%] flex flex-col md:flex-row justify-center items-center gap-5;
+            
+            .partie_text, .partie_img{
+                @apply w-full md:w-1/2 flex flex-col justify-center items-start relative;
+            }
+            .partie_img img{
+                @apply w-full h-auto object-cover rounded-md relative z-1;
+            }
+            .bg-img{
+                @apply w-full h-[300px] rounded-md shadow-md bg-[var(--secondary)] absolute top-10 left-5 z-0;
+            }
+            .partie_text{
+                .texte{
+                    @apply text-justify text-sm text-gray-600 leading-7 mt-4; 
+                }
+            }
+        }
+        /* FIN SECTION 1 */
+    
+        /* SECTION 2 */
+        .section2{
+            @apply bg-gray-200;
+            
+            .section2_content{
+                @apply w-[70%] mx-auto flex flex-col gap-5 py-10;
+
+                .partie1{
+                    height: 300px;
+                    margin-bottom: 10px;
+                    display: grid;
+                    grid-template-columns: 2fr 1fr;
+                    gap: 10px;
+                    img{
+                        @apply w-full h-[300px] object-cover rounded-xs relative;
+                    }
+                    
+                    
+                }
+                .partie2{
+                    display: grid;
+                    gap: 10px;
+                    grid-template-columns: repeat(3, 1fr);
+                    img{
+                        @apply w-full h-[200px] object-cover rounded-xs relative;
+                    }
+                }
+
+                .img{
+                    @apply relative cursor-pointer overflow-hidden;
+
+                    &:hover .nomSite{
+                        @apply h-[80px];
+                    }
+                }
+                .nomSite{
+                    @apply absolute bottom-0 w-full px-4 pt-3 h-[50px] bg-[var(--black1)]/50 text-white;
+                    transition: height 0.4s;
+                }
+
+            }
+        }
+        /* FIN SECTION 2 */
+    
+
+        /* SECTION 3 */
+        .section3{
+            .section3_content{
+                @apply w-[90%] mx-auto ;
+            }
+            .types_proprietes{
+                @apply w-full mt-7 flex justify-center items-center gap-4 overflow-x-scroll;
+
+                img{
+                    @apply min-w-[250px] max-w-[250px] h-[170px] object-cover rounded-md cursor-pointer;
+                }
+                .image_container{
+                    @apply relative overflow-hidden;
+                    &:hover img{
+                        @apply scale-110 transition-transform duration-400;
+                    }
+                }
+                .legende{
+                    @apply font-semibold text-sm mt-2;
+                }
+            }
+        }
+        /* FIN SECTION 3 */
+
+
+        /* SECTION4 */
+        .section4{
+            @apply w-full h-[400px] relative;
+
+            .banniere{
+                @apply w-full h-[400px] relative;
+            }
+        
+            .banniere_img{
+                @apply w-full h-full object-cover relative;
+                /* z-index: -1; */
+                /* filter: blur(1px) brightness(20%); */
+                filter: brightness(20%);
+            }
+        
+            .banniere .banniere_content{
+                @apply mt-10 text-white flex flex-col justify-center items-center gap-5 absolute top-0 left-0 w-full h-full;
+            }
+        
+            .banniere_content .banniere_title{
+                @apply text-white text-4xl font-bold;
+            }
+        }
+
+        /* FIN SECTION4 */
+
+        /* SECTION 5 */
+        .section5{
+            @apply bg-white mx-auto flex flex-col justify-center items-center gap-5 py-10;
+
+            .services_content{
+                @apply w-[80%] flex flex-col md:flex-row justify-center items-center gap-5 flex-wrap;
+                
+                .service_card{
+                    @apply border border-yellow-600 rounded-md cursor-pointer p-5 flex flex-col gap-5 justify-center items-center gap-2 text-center w-full md:w-[30%];
+                    
+                    .service_icon{
+                        @apply w-14 h-14 text-white flex justify-center items-center bg-[var(--primary)] border-2 border-dotted text-[var(--primary)] text-2xl rounded-full;
+                    }
+                    .service_title{
+                        @apply text-lg font-semibold text-[var(--black1)];
+                    }
+                    .service_text{
+                        @apply text-xs text-gray-600;
+                    }
+                }
+            }
+        }
+        /* FIN SECTION 5 */
+
+        /* SECTION 6 */
+        .section6{
+            @apply w-full bg-white mx-auto flex flex-col justify-center items-center gap-5 py-10;
+
+            .activities_content{
+                @apply w-[80%] mx-auto mt-10 flex justify-center items-center gap-1;
+
+                .activity_img{
+                    @apply w-[20%] h-[250px] object-cover rounded-md cursor-pointer;
+                }
+            }
+        }
+
+        /* FIN SECTION 6 */
+    }
+
+
+    
+}
+/*************** FIN PAGE HOME *******************/
+
+
+
+/* LES ELEMENTS UTILES AU JS */
+
+/* CAROUSEL */
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.activity_img {
+  transition: all 0.5s ease;
+}
+
+.center {
+  transform: scale(1.4);
+  z-index: 10;
+  position: relative;
+  z-index: 4;
+}
+
+.level2 {
+  transform: scale(1.2);
+  opacity: 0.9;
+  position: relative;
+  z-index: 3;
+}
+
+.level3 {
+  transform: scale(1.0);
+  opacity: 0.7;
+  position: relative;
+  z-index: 1;
+}
+
+.level4 {
+  transform: scale(0.9);
+  opacity: 0.6;
+  position: relative;
+  z-index: 0;
+}
+
+.tophead_hidden {
+  @apply opacity-0 -translate-y-full pointer-events-none;
+  transition: opacity 0.9s ease, transform 0.3s ease;
+}
+
+.navigation_fixed{
+    @apply fixed top-0 w-full z-20;
+    box-shadow: 2px 2px 3px #0000003d;
+    transition: all 0.3s ease;
+}
+
+/* MENU BURGER */
+#menu_toggle{
+    @apply block md:hidden cursor-pointer;
+}
+
+.navpecrans{
+    @apply hidden w-full md:hidden flex flex-col bg-white absolute top-[150px] right-0 px-5 py-5 shadow-md;
+}
+.navpecrans .navlinks{
+    @apply flex flex-col w-full;
+}
+
+
+.navpecrans .navlinks .link, .navpecrans .navlinks .activeLink{
+    @apply flex-col items-start w-full border-b border-gray-300 py-1 text-left;
+}
+
+/* FIN MENU BURGER */
+

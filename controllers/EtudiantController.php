@@ -1,4 +1,6 @@
 <?php
+namespace App\Controllers;
+
 require_once 'models/Etudiant.php';
 
 class EtudiantController {

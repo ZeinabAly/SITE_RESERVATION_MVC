@@ -1,0 +1,12 @@
+Options +FollowSymlinks
+RewriteEngine on
+ 
+RedirectMatch 404 ^/(.+/)*(.+)*\.(sql|key)$
+ 
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+ 
+RewriteRule "^((.*)(\.php|\.html))" "index.php?path=$2" [QSA]
+RewriteRule ^(js|css|images|webfonts)($|/) - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule "^(.*)" "index.php?path=$1"
