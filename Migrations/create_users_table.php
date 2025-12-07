@@ -1,6 +1,5 @@
 <?php
 namespace App\Migrations;
-
 use App\Core\Schema;
 
 class create_users_table{
