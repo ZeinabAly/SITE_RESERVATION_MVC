@@ -1,3 +1,32 @@
+
+window.addEventListener("DOMContentLoaded", () => {
+
+// FAIRE DISPARAITRE LE TOPHEAD AU SCROLL 
+let topHead = document.querySelector('.tophead');
+let navigation = document.querySelector('.logo_navs');
+
+window.addEventListener("scroll", function(){
+    if(window.scrollY > 50){
+        topHead.classList.add('tophead_hidden');
+        navigation.classList.add('navigation_fixed');
+    }
+    else{
+        topHead.classList.remove('tophead_hidden');
+        navigation.classList.remove('navigation_fixed');
+    }
+});
+
+// LE MENU BURGER POUR LA NAVIGATION SUR MOBILE
+let menuToggle = document.getElementById('menu_toggle');
+let navLinks = document.querySelector('.navlinks');
+let navpecrans = document.querySelector('.navpecrans');
+
+
+menuToggle.addEventListener("click", function(){
+    navpecrans.classList.toggle("hidden"); 
+})
+
+
 // FAIRE JOUER PLUSIEURS IMAGES
 
 // let images = document.querySelectorAll('.imagesdefil');
@@ -45,40 +74,43 @@ let activityIndex = 0;
 // setInterval(nextActivity, 4000);
 // showActivity(activityIndex);
 
+// A DECOMMENTER
 
-let nbreImages = activityImages.length;
-activityImages[0].classList.add('level4');
-activityImages[nbreImages - 1].classList.add('level4');
-activityImages[1].classList.add('level3');
-activityImages[nbreImages - 2].classList.add('level3');
-activityImages[2].classList.add('level2');
-activityImages[nbreImages - 3].classList.add('level2');
-activityImages[3].classList.add('center');
+// let nbreImages = activityImages.length;
+// activityImages[0].classList.add('level4');
+// activityImages[nbreImages - 1].classList.add('level4');
+// activityImages[1].classList.add('level3');
+// activityImages[nbreImages - 2].classList.add('level3');
+// activityImages[2].classList.add('level2');
+// activityImages[nbreImages - 3].classList.add('level2');
+// activityImages[3].classList.add('center');
 
 
-function rotateActivities() {
-    // Les images et les niveaux defilent, la carte d'image qui est au centre passe a un niveau inferieur et celle qui la precedait la remplace directement, ainsi de suite jusque ce qu'elle fasse le tour complet et revient a sa position de debut, jusquà l'infini
-    // De la gauche vers la droite, l'objectif est qu'il ait toujours une image au centre
+// function rotateActivities() {
+//     // Les images et les niveaux defilent, la carte d'image qui est au centre passe a un niveau inferieur et celle qui la precedait la remplace directement, ainsi de suite jusque ce qu'elle fasse le tour complet et revient a sa position de debut, jusquà l'infini
+//     // De la gauche vers la droite, l'objectif est qu'il ait toujours une image au centre
     
-    // FAIRE DEPLACER LES NIVEAUX
-    // L'image dimunue de niveau et d'indice 
-    activityImages.forEach((img) => {
-        if (img.classList.contains('center')) {
-            img.classList.remove('center');
-            img.classList.add('level2');
-        } else if (img.classList.contains('level2')) {
-            img.classList.remove('level2');
-            img.classList.add('level3');
-        } else if (img.classList.contains('level3')) {
-            img.classList.remove('level3');
-            img.classList.add('level4');
-        } else if (img.classList.contains('level4')) {
-            img.classList.remove('level4');
-            img.classList.add('center');
-        }
-    });
+//     // FAIRE DEPLACER LES NIVEAUX
+//     // L'image dimunue de niveau et d'indice 
+//     activityImages.forEach((img) => {
+//         if (img.classList.contains('center')) {
+//             img.classList.remove('center');
+//             img.classList.add('level2');
+//         } else if (img.classList.contains('level2')) {
+//             img.classList.remove('level2');
+//             img.classList.add('level3');
+//         } else if (img.classList.contains('level3')) {
+//             img.classList.remove('level3');
+//             img.classList.add('level4');
+//         } else if (img.classList.contains('level4')) {
+//             img.classList.remove('level4');
+//             img.classList.add('center');
+//         }
+//     });
 
-}
+// }
+
+// FIN DECOMMENTER
 // Lancer la rotation toutes les 4 secondes
 // setInterval(rotateActivities, 4000);
 
@@ -87,6 +119,7 @@ function rotateActivities() {
 
 
 // FIN CARROUSEL ACTIVITES ET EXCURSIONS
+
 
 // AJOUTER DES EFFETS HOVER SUR LES IMAGES DES SITES DANS LA SECTION 2
 
@@ -100,30 +133,5 @@ function rotateActivities() {
 // UTILISER DES VARIABLES CSS POUR GERER LES COULEURS ET LES FONTS
 // AJOUTER UN FOOTER AVEC DES LIENS VERS LES RESEAUX SOCIAUX ET LES INFORMATIONS DE CONTACT
 
-// FAIRE DISPARAITRE LE TOPHEAD AU SCROLL 
-let topHead = document.querySelector('.tophead');
-let navigation = document.querySelector('.logo_navs');
 
-window.addEventListener("scroll", function(){
-    if(window.scrollY > 50){
-        topHead.classList.add('tophead_hidden');
-        navigation.classList.add('navigation_fixed');
-    }
-    else{
-        topHead.classList.remove('tophead_hidden');
-        navigation.classList.remove('navigation_fixed');
-    }
-});
-
-// LE MENU BURGER POUR LA NAVIGATION SUR MOBILE
-let menuToggle = document.getElementById('menu_toggle');
-let navLinks = document.querySelector('.navlinks');
-let navpecrans = document.querySelector('.navpecrans');
-
-menuToggle.addEventListener("click", function(){
-    if(navpecrans.classList.contains("hidden")){
-        navpecrans.classList.remove("hidden");
-    }else{
-        navpecrans.classList.add("hidden");
-    }
 })

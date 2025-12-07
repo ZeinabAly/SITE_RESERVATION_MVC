@@ -1,28 +1,16 @@
-#!/usr/bin/php
 <?php
-
-// Charge ton autoloader fait maison
-require "./Core/Autoloader.php";
-require "./Core/Migrator.php";
+namespace App;
 
 use App\Core\Autoloader;
 use App\Core\Migrator;
+use App\Core\Database;
 use App\Migrations\create_users_table;
+
+require __DIR__ . '/Core/Autoloader.php';
+
+// Charger la configuration (définit App\Config\DB_CONFIG)
+require __DIR__ . '/config/config.php';
 
 Autoloader::register();
 
-
-// Migrator::run();
-
-$files = glob(__DIR__.'/Migrations/*.php'); // recherche tous les fichiers dans Migration
-
-foreach ($files as $file){
-    require_once $file;
-
-    // RECUPERER LA CLASSE A EXECUTER
-
-    $className = basename($file, '.php');
-    $migration = new create_users_table();
-    $migration->up();
-    echo 'yes';
-}
+Migrator::run();

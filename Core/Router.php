@@ -21,7 +21,7 @@ class Router{
 
         // Verifier si le paramètre page existe dans l'URL et s'il correspond à une route disponible
         
-        $route = Routes::AVAILABLE_ROUTES[$activePage] ?? Routes::AVAILABRE_ROUTES[Routes::DEFAULT_ROUTE];
+        $route = Routes::AVAILABLE_ROUTES[$activePage] ?? Routes::AVAILABLE_ROUTES[Routes::DEFAULT_ROUTE];
 
         // Construire le nom complet de la classe contrôleur
         $controllerClass = "App\\Controllers\\" . $route['controller'];

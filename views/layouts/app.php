@@ -16,8 +16,13 @@
     <!-- MAIN -->
     <main>
         <!-- Contenu spécifique à chaque page -->
-        <!-- <?php $content ?> -->
-        <?php include "views/pages/$view.php"; ?>
+        <?php 
+            if(in_array($view, ["login", "register"])){
+                include "views/auth/$view.php";
+            }else{
+                include "views/pages/$view.php";
+            }
+        ?> 
     </main>
 
     <!-- FOOTER -->

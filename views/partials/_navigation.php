@@ -51,12 +51,13 @@
         </div>
     </div>
 
-
+    <!-- LIENS DE NAVIGATION POUR PETITS ET GRANDS ECRANS -->
     <div class="logo_navs">
         <div class="logo">
             <img src="../../assets/images/logo.png" alt="logo du site" class="logo_img">
         </div>
         <div class="links-button">
+            <!-- GRANDS ECRANS -->
             <ul class="grand_ecrans navlinks">
                 <li class="<?= $activePage === 'home' ? 'activeLink' : 'link' ?>">
                     <a href="/home">
@@ -100,14 +101,17 @@
                 </li>
             </ul>                                                           
             <button class="primary_btn">Book now</button>
+            <!-- GRANDS ECRANS -->
+
+            <!-- POUR LES PETITS ECRANS -->
             <div class="menu_petits_ecrans">
                 <div id="menu_toggle">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-                <div class="navpecrans">
+                <div class="navpecrans hidden">
                     <ul class="navlinks">
-                        <li class="<?= $_GET['page'] == "home" ? 'activeLink' : 'link' ?>">
-                            <a href="index.php?page=home">
+                        <li class="<?= $activePage === 'home' ? 'activeLink' : 'link' ?>">
+                            <a href="/home">
                                 <span>Accueil</span>
                             </a>
                         </li>
@@ -139,16 +143,30 @@
                             </a>
                         </li>
                     </ul>  
+
+                    <div class="contact_links">
+                        <a href="tel:+"  class="ct_link">
+                            <i class="fa-solid fa-phone ct_icon"></i>
+                            <span> +33 0548382392</span>
+                        </a>
+                        <a href="mailto:" class="ct_link">
+                            <i class="fa-regular fa-envelope ct_icon"></i>
+                            <span>voyage@gmail.com</span>
+                        </a>
+                    </div>
+
                     <div class="login mt-4 gap-3 flex justify-center items-center">
-                        <a href="index.php?page=login" class="primary_btn login">
+                        <a href="/register" class="primary_btn login">
                             <i class="fa-solid fa-right-to-bracket log_icon"></i> 
                             <span>S'inscrire</span>   
                         </a>
-                        <a href="index.php?page=login" class="primary_btn signup">
+                        <a href="/login" class="primary_btn signup">
                             <i class="fa-solid fa-user log_icon"></i> 
                             <span>Se connecter</span>
                         </a>
                     </div>
+
+                    <!-- FIN NAVIGATION PETITS ECRANS -->
                 </div>
             </div>
         </div>

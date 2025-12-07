@@ -12,8 +12,8 @@ class create_users_table{
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone')->nullable();
-            $table->enum('role', values: ['user', 'admin'] , default: 'user');
+            $table->string('phone', nullable: "NULL");
+            $table->enum('role', values: ['user', 'admin'], default: "user");
             $table->timestamps();
         });
     }
