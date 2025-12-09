@@ -1,9 +1,10 @@
 <?php
 namespace App\Core;
+use const App\Config\DB_CONFIG;
+
 
 // CONNEXION UNIQUE A LA DB AVEC LE PATTERN SINGLETON 
 
-use const App\Config\DB_CONFIG;
 
 // PATTERN SINGLETON POUR LA CONNEXION UNIQUE A LA BASE DE DONNEES
 class Database {

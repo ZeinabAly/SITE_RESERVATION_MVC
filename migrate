@@ -2,7 +2,6 @@
 namespace App;
 
 use App\Core\Autoloader;
-use App\Core\Migrator;
 use App\Core\Database;
 use App\Migrations\create_users_table;
 
@@ -13,4 +12,6 @@ require __DIR__ . '/config/config.php';
 
 Autoloader::register();
 
-Migrator::run();
+require __DIR__ . "/Migrations/migrations.php";
+
+echo " Toutes les migrations ont été exécutées avec succès !\n";
