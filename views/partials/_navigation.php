@@ -65,36 +65,33 @@
                         <span>Accueil</span>
                     </a>
                 </li>
-                <li class="<?= $activePage === 'sejour' ? 'activeLink' : 'link' ?>">
-                    <a href="/home">
-                        <i class="fa-solid fa-bed"></i>
-                        <span>Sejour</span>
-                    </a>
-                </li>
-                <li class="link">
-                    <a href="index.php?page=about">
+                <li class="<?= $activePage === 'vols' ? 'activeLink' : 'link' ?>">
+                    <a href="/vols">
                         <i class="fa-solid fa-plane"></i>
                         <span>Vols</span>
                     </a>
                 </li>
-                <li class="link">
-                    <a href="index.php?page=about">Hotels</a>
+                <li class="<?= $activePage === 'hotels' ? 'activeLink' : 'link' ?>">
+                    <a href="/hotels">
+                        <i class="fa-solid fa-hotel"></i>
+                        <span>Hotels</span>
+                    </a>
                 </li>
-                <li class="link">
-                    <a href="index.php?page=about">
+                <li class="<?= $activePage === 'locationV' ? 'activeLink' : 'link' ?>">
+                    <a href="/locationV">
                         <i class="fa-solid fa-car"></i>
                         <span>Location de voiture</span>
                     </a>
                 </li>
-                <li class="link">
-                    <a href="index.php?page=about">
+                <li class="<?= $activePage === 'activities' ? 'activeLink' : 'link' ?>">
+                    <a href="/activities">
                         <i class="fa-solid fa-tags"></i>
                         <span>Activités</span>
                     </a>
                 </li>
                     
-                <li class="link">
-                    <a href="index.php?page=about">
+                <li class="<?= $activePage === 'contact' ? 'activeLink' : 'link' ?>">
+                    <a href="/contact">
                         <i class="fa-solid fa-address-book"></i>
                         <span>Contact</span>
                     </a>
@@ -115,30 +112,27 @@
                                 <span>Accueil</span>
                             </a>
                         </li>
-                        <li class="link"><a href="index.php?page=about">
-                            <span>Sejour</span>
+                        <li class="<?= $activePage === 'vols' ? 'activeLink' : 'link' ?>"><a href="/vols">
+                            <span>Vols</span>
                         </a></li>
-                        <li class="link">
-                            <a href="index.php?page=about">
-                                <span>Vols</span>
+                        <li class="<?= $activePage === 'hotels' ? 'activeLink' : 'link' ?>">
+                            <a href="/hotels">
+                                <span>Hotels</span>
                             </a>
                         </li>
-                        <li class="link">
-                            <a href="index.php?page=about">Hotels</a>
-                        </li>
-                        <li class="link">
-                            <a href="index.php?page=about">
+                        <li class="<?= $activePage === 'locationV' ? 'activeLink' : 'link' ?>">
+                            <a href="/locationV">
                                 <span>Location de voiture</span>
                             </a>
                         </li>
                         <li class="link">
-                            <a href="index.php?page=about">
+                            <a href="/activities">
                                 <span>Activités</span>
                             </a>
                         </li>
                             
-                        <li class="link">
-                            <a href="index.php?page=about">
+                        <li class="<?= $activePage === 'home' ? 'activeLink' : 'link' ?>">
+                            <a href="/contact">
                                 <span>Contact</span>
                             </a>
                         </li>

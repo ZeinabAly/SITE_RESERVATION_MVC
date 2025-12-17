@@ -6,6 +6,10 @@
     --quaternary: #6CCED9;
     --black1: #081226;
     --black2: #06338d;
+    --white-gray: #F5F5F5;
+    --white-gray2: #f1f1f1;
+    --mobileSideSize: 60px;
+    --topbarHeight: 60px;
 }
 
 body{

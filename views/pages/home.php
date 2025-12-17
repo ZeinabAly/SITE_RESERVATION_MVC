@@ -10,7 +10,6 @@
                 <div class="banniere_content">
                     <h1 class="banniere_title">Explorez le monde avec <span class="text-[var(--primary)]">nous</span></h1>
                     <p class="banniere_text">Recherchez dès maintant votre nouvelle destination</p>
-                    <!-- <a href="index.php?page=about" class="banniere_btn">En savoir plus</a> -->
                 </div>
             </div>
         </div>

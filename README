@@ -2,3 +2,12 @@
 2- LANCER LE WATCH DE TAILWIND QUE J'AI RACCOURCI AVEC **npm run dev**
 
 NB: Mon Autoloader ne cherche que les classes internes à mon projet, c'est à dire ceux qui se trouvent dans un namespace App
+
+
+JS (fetch)
+   ↓
+Controller (securiser les accès, centraliser la logique métier)
+   ↓
+Model (PDO)
+   ↓
+Base de données

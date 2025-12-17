@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation de Vols - Voyagez avec Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A4D68;
+            --primary-light: #088395;
+            --accent: #FF6B35;
+            --accent-light: #FF8C61;
+            --background: #FAFBFC;
+            --card: #FFFFFF;
+            --text-dark: #1A2332;
+            --text-medium: #4A5568;
+            --text-light: #718096;
+            --border: #E2E8F0;
+            --shadow: rgba(10, 77, 104, 0.08);
+            --shadow-strong: rgba(10, 77, 104, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #F0F4F8 0%, #FAFBFC 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--card);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "✈";
+            font-size: 2rem;
+            animation: fly 3s ease-in-out infinite;
+        }
+
+        @keyframes fly {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(5px) translateY(-3px); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login {
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-strong);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-medium);
+            font-weight: 400;
+        }
+
+        /* Search Card */
+        .search-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 50px var(--shadow-strong);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary-light));
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .trip-type {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .trip-option {
+            position: relative;
+        }
+
+        .trip-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .trip-option label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .trip-option input[type="radio"]:checked + label {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-strong);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(10, 77, 104, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-icon {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .passengers-class {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-search {
+            grid-column: 1 / -1;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-search:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-search:active {
+            transform: translateY(-1px);
+        }
+
+        /* Popular Destinations */
+        .destinations {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px var(--shadow);
+            height: 350px;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-strong);
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .destination-card:hover .destination-image {
+            transform: scale(1.1);
+        }
+
+        .destination-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            color: white;
+        }
+
+        .destination-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .destination-price {
+            font-size: 1.2rem;
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* Features */
+        .features {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-strong);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-card:nth-child(1) .feature-icon { animation-delay: 0s; }
+        .feature-card:nth-child(2) .feature-icon { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) .feature-icon { animation-delay: 0.4s; }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .feature-description {
+            color: var(--text-medium);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            color: var(--accent-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .search-card {
+                padding: 2rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .passengers-class {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">VoyageLux</div>
+            <ul class="nav-links">
+                <li><a href="#vols">Vols</a></li>
+                <li><a href="#hotels">Hôtels</a></li>
+                <li><a href="#packages">Forfaits</a></li>
+                <li><a href="#offres">Offres spéciales</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn-login">Connexion</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Découvrez le monde avec style</h1>
+                <p class="subtitle">Réservez vos vols aux meilleurs prix, partout dans le monde</p>
+            </div>
+
+            <div class="search-card">
+                <div class="trip-type">
+                    <div class="trip-option">
+                        <input type="radio" id="aller-retour" name="trip" checked>
+                        <label for="aller-retour">
+                            <span>🔄</span>
+                            Aller-retour
+                        </label>
+                    </div>
+                    <div class="trip-option">
+                        <input type="radio" id="aller-simple" name="trip">
+                        <label for="aller-simple">
+                            <span>➡️</span>
+                            Aller simple
+                        </label>
+                    </div>
+                    <div class="trip-option">
+                        <input type="radio" id="multi-destinations" name="trip">
+                        <label for="multi-destinations">
+                            <span>🌍</span>
+                            Multi-destinations
+                        </label>
+                    </div>
+                </div>
+
+                <form class="search-form">
+                    <div class="form-group">
+                        <label for="depart">Départ</label>
+                        <span class="form-icon">📍</span>
+                        <input type="text" id="depart" placeholder="Ville ou aéroport" value="Paris (CDG)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="arrivee">Arrivée</label>
+                        <span class="form-icon">🎯</span>
+                        <input type="text" id="arrivee" placeholder="Ville ou aéroport">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date-depart">Date de départ</label>
+                        <span class="form-icon">📅</span>
+                        <input type="date" id="date-depart">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date-retour">Date de retour</label>
+                        <span class="form-icon">📅</span>
+                        <input type="date" id="date-retour">
+                    </div>
+
+                    <div class="passengers-class">
+                        <div class="form-group">
+                            <label for="passagers">Passagers</label>
+                            <span class="form-icon">👥</span>
+                            <select id="passagers">
+                                <option>1 passager</option>
+                                <option>2 passagers</option>
+                                <option>3 passagers</option>
+                                <option>4+ passagers</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="classe">Classe</label>
+                            <span class="form-icon">💺</span>
+                            <select id="classe">
+                                <option>Économique</option>
+                                <option>Premium Économique</option>
+                                <option>Affaires</option>
+                                <option>Première Classe</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-search">
+                        <span>🔍</span>
+                        Rechercher des vols
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="destinations">
+            <h2 class="section-title">Destinations populaires</h2>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=600&fit=crop" alt="Paris" class="destination-image">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Paris</h3>
+                        <p class="destination-price">À partir de 89€</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1559628376-f3fe5f782a2e?w=800&h=600&fit=crop" alt="Tokyo" class="destination-image">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Tokyo</h3>
+                        <p class="destination-price">À partir de 549€</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?w=800&h=600&fit=crop" alt="New York" class="destination-image">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">New York</h3>
+                        <p class="destination-price">À partir de 349€</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" alt="Dubaï" class="destination-image">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Dubaï</h3>
+                        <p class="destination-price">À partir de 299€</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&h=600&fit=crop" alt="Bali" class="destination-image">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Bali</h3>
+                        <p class="destination-price">À partir de 479€</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&h=600&fit=crop" alt="Rome" class="destination-image">
+                    <div class="destination-overlay">
+                        <h3 class="destination-name">Rome</h3>
+                        <p class="destination-price">À partir de 129€</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 class="section-title">Pourquoi nous choisir ?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Meilleurs prix garantis</h3>
+                    <p class="feature-description">Nous comparons des milliers de vols pour vous offrir les tarifs les plus compétitifs du marché.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">Réservation sécurisée</h3>
+                    <p class="feature-description">Vos données sont protégées avec un cryptage de niveau bancaire et des paiements 100% sécurisés.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Confirmation instantanée</h3>
+                    <p class="feature-description">Recevez votre billet électronique immédiatement après la réservation, prêt pour votre voyage.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 VoyageLux. Tous droits réservés.</p>
+            <p>Votre partenaire de confiance pour des voyages inoubliables</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">📘</a>
+                <a href="#" aria-label="Instagram">📷</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+                <a href="#" aria-label="LinkedIn">💼</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.destination-card, .feature-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Mise à jour des dates par défaut
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 7);
+        const returnDate = new Date(today);
+        returnDate.setDate(returnDate.getDate() + 14);
+
+        document.getElementById('date-depart').valueAsDate = tomorrow;
+        document.getElementById('date-retour').valueAsDate = returnDate;
+
+        // Gestion du formulaire
+        document.querySelector('.search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Recherche de vols en cours... Cette démo afficherait normalement les résultats de recherche.');
+        });
+
+        // Effet de survol sur les cartes de destination
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const destination = card.querySelector('.destination-name').textContent;
+                alert(`Explorer les vols vers ${destination}`);
+            });
+        });
+    </script>
+</body>
+</html>

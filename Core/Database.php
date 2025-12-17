@@ -1,29 +1,33 @@
 <?php
 namespace App\Core;
+
 use const App\Config\DB_CONFIG;
 
-
-// CONNEXION UNIQUE A LA DB AVEC LE PATTERN SINGLETON 
-
-
-// PATTERN SINGLETON POUR LA CONNEXION UNIQUE A LA BASE DE DONNEES
-class Database {
+class Database
+{
     private static ?Database $instance = null;
     private \PDO $connection;
 
-    // DECLARATION DES CONSTANTES DE CONNEXION A LA BASE DE DONNEES
-    private string $host = DB_CONFIG['host'];
-    private string $dbname = DB_CONFIG['dbname'];
-    private string $username = DB_CONFIG['username'];
-    private string $password = DB_CONFIG['password'];
-    private string $charset = DB_CONFIG['charset'];
+    private string $host;
+    private string $dbname;
+    private string $user;
+    private string $password;
+    private string $charset;
+    private int $port;
 
-    // DECLARATION DU CONSTRUCTEUR PRIVE
-    private function __construct(){
-        try{
+    private function __construct()
+    {
+        $this->host     = DB_CONFIG['host'];
+        $this->dbname   = DB_CONFIG['dbname'];
+        $this->user     = DB_CONFIG['username'];
+        $this->password = DB_CONFIG['password'];
+        $this->charset  = DB_CONFIG['charset'] ?? 'utf8mb4';
+        $this->port     = DB_CONFIG['port'] ?? 3306;
+
+        try {
             $this->connection = new \PDO(
-                "mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}",
-                $this->username,
+                "mysql:host={$this->host};port={$this->port};dbname={$this->dbname};charset={$this->charset}",
+                $this->user,
                 $this->password,
                 [
                     \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
@@ -31,22 +35,20 @@ class Database {
                 ]
             );
         } catch (\PDOException $e) {
-            die("Erreur de connexion : " . $e->getMessage());
+            die("Erreur de connexion DB : " . $e->getMessage());
         }
-
-
     }
-    
-    // METHODE POUR OBTENIR L'INSTANCE UNIQUE
-    public static function getInstance(): Database {
+
+    public static function getInstance(): Database
+    {
         if (self::$instance === null) {
             self::$instance = new Database();
         }
         return self::$instance;
     }
 
-    public function getConnection(): \PDO {
+    public function getConnection(): \PDO
+    {
         return $this->connection;
     }
 }
-
