@@ -18,6 +18,8 @@ abstract class Model {
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    
+
 
     public function getById(string $table, int $id): ?array {
         $stmt = $this->db->prepare("SELECT * FROM {$table} WHERE id = :id");
@@ -25,6 +27,13 @@ abstract class Model {
         $stmt->execute();
         $result = $stmt->fetch();
         return $result ? $result : null;
+    }
+    
+    
+    public function getByStars(string $table): ?array {
+        $stmt = $this->db->prepare("SELECT * FROM {$table} ORDER BY stars DESC ");
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     public function create(string $table, array $data){

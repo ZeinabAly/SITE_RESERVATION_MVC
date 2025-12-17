@@ -1,16 +1,18 @@
 <?php
 namespace App\Core;
+use App\Core\Database;
+use PDO;
 
 class Validator {
 
     protected array $errors = [];
-    protected $pdo;
+    protected PDO $pdo;
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+    public function __construct(){
+        $this->pdo = Database::getInstance()->getConnection();
     }
 
-    public function required(string $field, $value, string $message = null) {
+    public function required(string $field, $value, ?string $message = null) {
         if (empty($value)) {
             $this->errors[$field][] = $message ?? "Champ requis";
         }

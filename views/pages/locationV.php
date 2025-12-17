@@ -5,9 +5,7 @@
             <?php include_once "views/partials/_navigation.php"; ?>
         </div>
         <div class="header_content">
-            <div class="car_icon">
-                <i class="fas fa-car"></i>
-            </div>
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&h=800&fit=crop" alt="Banniere image" class="banniere_img">
             <h1 class="header_title">Location de <span style="color: #EAB308;">Voitures</span></h1>
             <p class="header_subtitle">Explorez en toute liberté avec notre large gamme de véhicules adaptés à tous vos besoins</p>
         </div>
@@ -45,32 +43,32 @@
 
         <div class="categories_grid">
             <div class="category_card">
-                <div class="category_icon">🚗</div>
+                <div class="category_icon"><i class="fa-solid fa-leaf"></i></div>
                 <div class="category_name">Économique</div>
                 <div class="category_count">45 véhicules</div>
             </div>
             <div class="category_card">
-                <div class="category_icon">🏎️</div>
+                <div class="category_icon"><i class="fa-solid fa-gauge-high"></i></div>
                 <div class="category_name">Sport</div>
                 <div class="category_count">12 véhicules</div>
             </div>
             <div class="category_card">
-                <div class="category_icon">🚙</div>
+                <div class="category_icon"><i class="fa-solid fa-car-side"></i></div>
                 <div class="category_name">SUV</div>
                 <div class="category_count">28 véhicules</div>
             </div>
             <div class="category_card">
-                <div class="category_icon">👔</div>
+                <div class="category_icon"><i class="fa-solid fa-gem"></i></div>
                 <div class="category_name">Luxe</div>
                 <div class="category_count">15 véhicules</div>
             </div>
             <div class="category_card">
-                <div class="category_icon">⚡</div>
+                <div class="category_icon"><i class="fa-solid fa-bolt"></i></div>
                 <div class="category_name">Électrique</div>
                 <div class="category_count">20 véhicules</div>
             </div>
             <div class="category_card">
-                <div class="category_icon">👨‍👩‍👧‍👦</div>
+                <div class="category_icon"><i class="fa-solid fa-users"></i></div>
                 <div class="category_name">Familiale</div>
                 <div class="category_count">32 véhicules</div>
             </div>

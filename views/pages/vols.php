@@ -1,6 +1,5 @@
 <div id="flights_page">
     <!-- HEADER SECTION -->
-
     <header class="header_section">
         <div class="navigation">
             <?php include_once "views/partials/_navigation.php"; ?>
@@ -111,137 +110,59 @@
             <h2 class="section_titre">Routes <span>populaires</span></h2>
 
             <div class="routes_grid">
-                <!-- ROUTE 1 -->
-                <div class="route_card">
-                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=400&fit=crop" alt="Londres" class="route_image">
-                    <div class="route_info">
-                        <div class="route_cities">
-                            <span class="city_name">Paris</span>
-                            <i class="fas fa-plane route_icon"></i>
-                            <span class="city_name">Londres</span>
-                        </div>
-                        <div class="route_details">
-                            <div>
-                                <div class="route_price">89€</div>
-                                <div class="price_label">par personne</div>
+                <?php if (!empty($vols)): ?>
+                    <?php 
+                    $db = App\Core\Database::getInstance()->getConnection();
+                    foreach ($vols as $vol): 
+                        // Récupérer les informations des aéroports et compagnie
+                        $stmtDeparture = $db->prepare("SELECT * FROM airports WHERE id = ?");
+                        $stmtDeparture->execute([$vol['departure_airport_id']]);
+                        $departureAirport = $stmtDeparture->fetch();
+                        
+                        $stmtArrival = $db->prepare("SELECT * FROM airports WHERE id = ?");
+                        $stmtArrival->execute([$vol['arrival_airport_id']]);
+                        $arrivalAirport = $stmtArrival->fetch();
+                        
+                        $stmtAirline = $db->prepare("SELECT * FROM airlines WHERE id = ?");
+                        $stmtAirline->execute([$vol['airline_id']]);
+                        $airline = $stmtAirline->fetch();
+                        
+                        // Récupérer l'image
+                        $stmtImage = $db->prepare("SELECT url FROM images WHERE item_type = 'flight' AND item_id = ? LIMIT 1");
+                        $stmtImage->execute([$vol['id']]);
+                        $image = $stmtImage->fetch();
+                        $imageUrl = $image ? $image['url'] : 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&h=400&fit=crop';
+                    ?>
+                        
+                        <div class="route_card">
+                            <img src="<?= htmlspecialchars($imageUrl) ?>" alt="<?= htmlspecialchars($arrivalAirport['city'] ?? 'Destination') ?>" class="route_image">
+                            <div class="route_info">
+                                <div class="route_cities">
+                                    <span class="city_name"><?= htmlspecialchars($departureAirport['city'] ?? 'Départ') ?></span>
+                                    <i class="fas fa-plane route_icon"></i>
+                                    <span class="city_name"><?= htmlspecialchars($arrivalAirport['city'] ?? 'Arrivée') ?></span>
+                                </div>
+                                <div class="route_details">
+                                    <div>
+                                        <div class="route_price"><?= intval(round($vol['price'])) ?>€</div>
+                                        <div class="price_label">par personne</div>
+                                    </div>
+                                    <div class="route_company">
+                                        <i class="fas fa-plane-departure"></i>
+                                        <?= htmlspecialchars($airline['name'] ?? 'Compagnie') ?>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="route_company">
-                                <i class="fas fa-plane-departure"></i>
-                                Air France
-                            </div>
                         </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <!-- Message si aucun vol -->
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #6B7280;">
+                        <i class="fas fa-plane-slash" style="font-size: 3rem; margin-bottom: 1rem; color: #D1D5DB;"></i>
+                        <p style="font-size: 1.2rem; font-weight: 600;">Aucun vol disponible pour le moment</p>
+                        <p style="margin-top: 0.5rem;">Revenez plus tard pour découvrir nos offres</p>
                     </div>
-                </div>
-
-                <!-- ROUTE 2 -->
-                <div class="route_card">
-                    <img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=400&fit=crop" alt="New York" class="route_image">
-                    <div class="route_info">
-                        <div class="route_cities">
-                            <span class="city_name">Paris</span>
-                            <i class="fas fa-plane route_icon"></i>
-                            <span class="city_name">New York</span>
-                        </div>
-                        <div class="route_details">
-                            <div>
-                                <div class="route_price">349€</div>
-                                <div class="price_label">par personne</div>
-                            </div>
-                            <div class="route_company">
-                                <i class="fas fa-plane-departure"></i>
-                                Delta
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ROUTE 3 -->
-                <div class="route_card">
-                    <img src="https://images.unsplash.com/photo-1559628376-f3fe5f782a2e?w=600&h=400&fit=crop" alt="Tokyo" class="route_image">
-                    <div class="route_info">
-                        <div class="route_cities">
-                            <span class="city_name">Paris</span>
-                            <i class="fas fa-plane route_icon"></i>
-                            <span class="city_name">Tokyo</span>
-                        </div>
-                        <div class="route_details">
-                            <div>
-                                <div class="route_price">549€</div>
-                                <div class="price_label">par personne</div>
-                            </div>
-                            <div class="route_company">
-                                <i class="fas fa-plane-departure"></i>
-                                ANA
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ROUTE 4 -->
-                <div class="route_card">
-                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop" alt="Dubaï" class="route_image">
-                    <div class="route_info">
-                        <div class="route_cities">
-                            <span class="city_name">Paris</span>
-                            <i class="fas fa-plane route_icon"></i>
-                            <span class="city_name">Dubaï</span>
-                        </div>
-                        <div class="route_details">
-                            <div>
-                                <div class="route_price">299€</div>
-                                <div class="price_label">par personne</div>
-                            </div>
-                            <div class="route_company">
-                                <i class="fas fa-plane-departure"></i>
-                                Emirates
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ROUTE 5 -->
-                <div class="route_card">
-                    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=400&fit=crop" alt="Rome" class="route_image">
-                    <div class="route_info">
-                        <div class="route_cities">
-                            <span class="city_name">Paris</span>
-                            <i class="fas fa-plane route_icon"></i>
-                            <span class="city_name">Rome</span>
-                        </div>
-                        <div class="route_details">
-                            <div>
-                                <div class="route_price">129€</div>
-                                <div class="price_label">par personne</div>
-                            </div>
-                            <div class="route_company">
-                                <i class="fas fa-plane-departure"></i>
-                                Alitalia
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ROUTE 6 -->
-                <div class="route_card">
-                    <img src="https://images.unsplash.com/photo-1559628376-f3fe5f782a2e?w=600&h=400&fit=crop" alt="Barcelone" class="route_image">
-                    <div class="route_info">
-                        <div class="route_cities">
-                            <span class="city_name">Paris</span>
-                            <i class="fas fa-plane route_icon"></i>
-                            <span class="city_name">Barcelone</span>
-                        </div>
-                        <div class="route_details">
-                            <div>
-                                <div class="route_price">99€</div>
-                                <div class="price_label">par personne</div>
-                            </div>
-                            <div class="route_company">
-                                <i class="fas fa-plane-departure"></i>
-                                Vueling
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </section>
 

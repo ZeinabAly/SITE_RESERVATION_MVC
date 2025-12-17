@@ -190,8 +190,11 @@
 
     .category_card:hover{
         border-color: var(--primary);
+        background: var(--primary);
+        color: var(--primary);
         transform: translateY(-5px);
         box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        border-color: var(--primary);
     }
 
     .category_icon{
@@ -290,6 +293,11 @@
 
     .car_header{
         margin-bottom: 1rem;
+    }
+
+    .car_header:hover{
+        background: var(--primary) !important;
+        border: 5px solid var(--primary) !important;
     }
 
     .car_category{

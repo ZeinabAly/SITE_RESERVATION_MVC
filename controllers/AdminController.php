@@ -27,12 +27,4 @@ class AdminController extends Model {
     public function destroy(string $table, int $id): void {
         $this->deleteById($table, $id);
     }
-
-    // private function validate(string $table, array $data, bool $required = true): void {
-    //     if ($table === 'users' && $required) {
-    //         if (empty($data['email'])) {
-    //             throw new Exception('Email obligatoire');
-    //         }
-    //     }
-    // }
 }

@@ -13,8 +13,8 @@ class Routes{
         "hotels" => ["controller" => "HomeController", "method" => ["GET" => "hotels"]],
         "locationV" => ["controller" => "HomeController", "method" => ["GET" => "locationV"]],
         "contact" => ["controller" => "HomeController", "method" => ["GET" => "contact"]],
-        "login" => ["controller" => "AuthController", "method" => ["GET" => "login"]],
-        "register" => ["controller" => "AuthController", "method" => ["GET" => "register"]],
+        "login" => ["controller" => "AuthController", "method" => ["GET" => "login", "POST" => "handleLogin"]],
+        "register" => ["controller" => "AuthController", "method" => ["GET" => "register", "POST" => "handleRegister"]],
     ];
 
     public const ADMIN_ROUTES = [

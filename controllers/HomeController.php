@@ -27,7 +27,7 @@ class HomeController extends Model {
     }
     
     public function vols() {
-        $vols = $this->getAll('vols', 'DESC');
+        $vols = $this->getAll('flights', 'DESC');
         return $this->render('vols', ['title' => 'Vols', 'vols' => $vols]);
     }
 
@@ -37,7 +37,7 @@ class HomeController extends Model {
     }
 
     public function locationV() {
-        return $this->render('locationV', ['title' => 'Location de véhicules', 'vols' => $vols]);
+        return $this->render('locationV', ['title' => 'Location de véhicules']);
     }
 
     public function activities() {
@@ -45,4 +45,5 @@ class HomeController extends Model {
         $activities = $this->getAll('activities', 'DESC');
         return $this->render('activities', ['title' => 'Activités', 'activities' => $activities]);
     }
+    
 }

@@ -2,6 +2,8 @@
 namespace App\Validators;
 
 use App\Core\Validator;
+use App\Core\Database;
+use PDO;
 
 class UserValidator extends Validator {
 

@@ -128,7 +128,7 @@
             <section class="hotels_section">
                 <div class="section_header">
                     <div class="results_count">
-                        <strong>287</strong> hôtels trouvés
+                        <strong><?= count($hotels) ?></strong> hôtel<?= count($hotels) > 1 ? 's' : '' ?> trouvé<?= count($hotels) > 1 ? 's' : '' ?>
                     </div>
                     <select class="sort_select">
                         <option>Trier par: Recommandés</option>
@@ -140,176 +140,90 @@
                 </div>
 
                 <div class="hotels_grid">
-                    <!-- HOTEL CARD 1 -->
-                    <div class="hotel_card">
-                        <div class="hotel_image_container">
-                            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=400&fit=crop" alt="Grand Hôtel Élégance" class="hotel_image">
-                            <span class="hotel_badge">Meilleure offre</span>
-                            <button class="favorite_btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="hotel_info">
-                            <div>
-                                <div class="hotel_header">
-                                    <h3 class="hotel_name">Grand Hôtel Élégance</h3>
-                                    <div class="hotel_location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>Paris, France - Centre-ville</span>
-                                    </div>
+                    <?php if (!empty($hotels)): ?>
+                        <?php 
+                        $db = App\Core\Database::getInstance()->getConnection();
+                        foreach ($hotels as $index => $hotel): 
+                            // Récupérer l'image de l'hôtel
+                            $stmtImage = $db->prepare("SELECT url FROM images WHERE item_type = 'hotel' AND item_id = ? LIMIT 1");
+                            $stmtImage->execute([$hotel['id']]);
+                            $image = $stmtImage->fetch();
+                            $imageUrl = $image ? $image['url'] : 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=400&fit=crop';
+                            
+                            // Récupérer les chambres pour trouver le prix minimum
+                            $stmtRooms = $db->prepare("SELECT MIN(price_by_night) as min_price FROM rooms WHERE hotel_id = ?");
+                            $stmtRooms->execute([$hotel['id']]);
+                            $rooms = $stmtRooms->fetch();
+                            $minPrice = $rooms['min_price'] ?? 99;
+                            
+                            // Générer les étoiles
+                            $stars = str_repeat('⭐', $hotel['stars']);
+                            // Badge selon l'index
+                            $badges = [
+                                ['text' => 'Meilleure offre', 'color' => '#296CF2'],
+                                ['text' => 'Populaire', 'color' => '#EAB308'],
+                                ['text' => 'Nouveau', 'color' => '#10B981'],
+                            ];
+                            $badgeInfo = $index < 3 ? $badges[$index] : null;
+                            
+                            // Note aléatoire réaliste
+                            $rating = rand(80, 98) / 10;
+                            $reviewCount = rand(100, 1500);
+                        ?>
+                            
+                            <!-- HOTEL CARD <?= $index + 1 ?> -->
+                            <div class="hotel_card">
+                                <div class="hotel_image_container">
+                                    <img src="<?= htmlspecialchars($imageUrl) ?>" alt="<?= htmlspecialchars($hotel['name']) ?>" class="hotel_image">
+                                    <?php if ($badgeInfo): ?>
+                                        <span class="hotel_badge" style="background: <?= $badgeInfo['color'] ?>;"><?= $badgeInfo['text'] ?></span>
+                                    <?php endif; ?>
+                                    <button class="favorite_btn">
+                                        <i class="far fa-heart"></i>
+                                    </button>
                                 </div>
-                                <div class="hotel_rating">
-                                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                                    <span class="rating_score">9.2</span>
-                                    <span style="color: #6B7280; font-size: 0.875rem;">(1,245 avis)</span>
-                                </div>
-                                <div class="hotel_amenities">
-                                    <span class="amenity"><i class="fas fa-wifi"></i> WiFi gratuit</span>
-                                    <span class="amenity"><i class="fas fa-swimming-pool"></i> Piscine</span>
-                                    <span class="amenity"><i class="fas fa-parking"></i> Parking</span>
-                                    <span class="amenity"><i class="fas fa-utensils"></i> Restaurant</span>
-                                </div>
-                            </div>
-                            <div class="hotel_footer">
-                                <div class="price_section">
-                                    <span class="price_label">À partir de</span>
+                                <div class="hotel_info">
                                     <div>
-                                        <span class="hotel_price">189€</span>
-                                        <span class="night_label">/ nuit</span>
+                                        <div class="hotel_header">
+                                            <h3 class="hotel_name"><?= htmlspecialchars($hotel['name']) ?></h3>
+                                            <div class="hotel_location">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <span><?= htmlspecialchars($hotel['city']) ?><?= !empty($hotel['address']) ? ' - ' . htmlspecialchars($hotel['address']) : '' ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="hotel_rating">
+                                            <div class="stars"><?= $stars ?></div>
+                                            <span class="rating_score"><?= $rating ?></span>
+                                            <span style="color: #6B7280; font-size: 0.875rem;">(<?= number_format($reviewCount, 0, ',', ' ') ?> avis)</span>
+                                        </div>
+                                        <div class="hotel_amenities">
+                                            <span class="amenity"><i class="fas fa-wifi"></i> WiFi gratuit</span>
+                                            <span class="amenity"><i class="fas fa-swimming-pool"></i> Piscine</span>
+                                            <span class="amenity"><i class="fas fa-parking"></i> Parking</span>
+                                            <span class="amenity"><i class="fas fa-utensils"></i> Restaurant</span>
+                                        </div>
+                                    </div>
+                                    <div class="hotel_footer">
+                                        <div class="price_section">
+                                            <span class="price_label">À partir de</span>
+                                            <div>
+                                                <span class="hotel_price"><?= intval(round($minPrice)) ?>€</span>
+                                                <span class="night_label">/ nuit</span>
+                                            </div>
+                                        </div>
+                                        <button class="book_btn">Réserver</button>
                                     </div>
                                 </div>
-                                <button class="book_btn">Réserver</button>
                             </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <!-- Message si aucun hôtel -->
+                        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #6B7280;">
+                            <i class="fas fa-hotel" style="font-size: 3rem; margin-bottom: 1rem; color: #D1D5DB;"></i>
+                            <p style="font-size: 1.2rem; font-weight: 600;">Aucun hôtel disponible pour le moment</p>
+                            <p style="margin-top: 0.5rem;">Modifiez vos critères de recherche</p>
                         </div>
-                    </div>
-
-                    <!-- HOTEL CARD 2 -->
-                    <div class="hotel_card">
-                        <div class="hotel_image_container">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop" alt="Resort Paradise" class="hotel_image">
-                            <span class="hotel_badge" style="background: #EAB308;">Populaire</span>
-                            <button class="favorite_btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="hotel_info">
-                            <div>
-                                <div class="hotel_header">
-                                    <h3 class="hotel_name">Resort Paradise</h3>
-                                    <div class="hotel_location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>Maldives - Bord de plage</span>
-                                    </div>
-                                </div>
-                                <div class="hotel_rating">
-                                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                                    <span class="rating_score">9.8</span>
-                                    <span style="color: #6B7280; font-size: 0.875rem;">(892 avis)</span>
-                                </div>
-                                <div class="hotel_amenities">
-                                    <span class="amenity"><i class="fas fa-wifi"></i> WiFi gratuit</span>
-                                    <span class="amenity"><i class="fas fa-spa"></i> Spa</span>
-                                    <span class="amenity"><i class="fas fa-cocktail"></i> Bar</span>
-                                    <span class="amenity"><i class="fas fa-dumbbell"></i> Salle de sport</span>
-                                </div>
-                            </div>
-                            <div class="hotel_footer">
-                                <div class="price_section">
-                                    <span class="price_label">À partir de</span>
-                                    <div>
-                                        <span class="hotel_price">459€</span>
-                                        <span class="night_label">/ nuit</span>
-                                    </div>
-                                </div>
-                                <button class="book_btn">Réserver</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- HOTEL CARD 3 -->
-                    <div class="hotel_card">
-                        <div class="hotel_image_container">
-                            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop" alt="Villa Serenity" class="hotel_image">
-                            <span class="hotel_badge" style="background: #10B981;">Nouveau</span>
-                            <button class="favorite_btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="hotel_info">
-                            <div>
-                                <div class="hotel_header">
-                                    <h3 class="hotel_name">Villa Serenity</h3>
-                                    <div class="hotel_location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>Bali, Indonésie - Vue montagne</span>
-                                    </div>
-                                </div>
-                                <div class="hotel_rating">
-                                    <div class="stars">⭐⭐⭐⭐</div>
-                                    <span class="rating_score">9.5</span>
-                                    <span style="color: #6B7280; font-size: 0.875rem;">(567 avis)</span>
-                                </div>
-                                <div class="hotel_amenities">
-                                    <span class="amenity"><i class="fas fa-wifi"></i> WiFi gratuit</span>
-                                    <span class="amenity"><i class="fas fa-swimming-pool"></i> Piscine privée</span>
-                                    <span class="amenity"><i class="fas fa-concierge-bell"></i> Conciergerie</span>
-                                    <span class="amenity"><i class="fas fa-hot-tub"></i> Jacuzzi</span>
-                                </div>
-                            </div>
-                            <div class="hotel_footer">
-                                <div class="price_section">
-                                    <span class="price_label">À partir de</span>
-                                    <div>
-                                        <span class="hotel_price">329€</span>
-                                        <span class="night_label">/ nuit</span>
-                                    </div>
-                                </div>
-                                <button class="book_btn">Réserver</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- HOTEL CARD 4 -->
-                    <div class="hotel_card">
-                        <div class="hotel_image_container">
-                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop" alt="Hôtel Moderne City" class="hotel_image">
-                            <button class="favorite_btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="hotel_info">
-                            <div>
-                                <div class="hotel_header">
-                                    <h3 class="hotel_name">Hôtel Moderne City</h3>
-                                    <div class="hotel_location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>Londres, UK - Quartier d'affaires</span>
-                                    </div>
-                                </div>
-                                <div class="hotel_rating">
-                                    <div class="stars">⭐⭐⭐⭐</div>
-                                    <span class="rating_score">8.9</span>
-                                    <span style="color: #6B7280; font-size: 0.875rem;">(723 avis)</span>
-                                </div>
-                                <div class="hotel_amenities">
-                                    <span class="amenity"><i class="fas fa-wifi"></i> WiFi gratuit</span>
-                                    <span class="amenity"><i class="fas fa-parking"></i> Parking</span>
-                                    <span class="amenity"><i class="fas fa-briefcase"></i> Centre d'affaires</span>
-                                    <span class="amenity"><i class="fas fa-coffee"></i> Petit-déjeuner</span>
-                                </div>
-                            </div>
-                            <div class="hotel_footer">
-                                <div class="price_section">
-                                    <span class="price_label">À partir de</span>
-                                    <div>
-                                        <span class="hotel_price">149€</span>
-                                        <span class="night_label">/ nuit</span>
-                                    </div>
-                                </div>
-                                <button class="book_btn">Réserver</button>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </section>
         </div>

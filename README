@@ -1,13 +1,78 @@
-1- LANCER LE SERVER
-2- LANCER LE WATCH DE TAILWIND QUE J'AI RACCOURCI AVEC **npm run dev**
+# Installation & Lancement du projet
 
-NB: Mon Autoloader ne cherche que les classes internes à mon projet, c'est à dire ceux qui se trouvent dans un namespace App
+### 1- Lancer le serveur local
+
+Prérequis : serveur local fonctionnel (Apache / Nginx / PHP built-in server).
+
+***
+php -S localhost:8000
+***
+
+---
+
+### 2- Compiler les styles avec Tailwind CSS
+
+Le projet utilise **Tailwind CSS** comme seul framework CSS.
+
+Le watch Tailwind a été simplifié via le script suivant :
+
+***
+npm run dev
+***
 
 
-JS (fetch)
-   ↓
-Controller (securiser les accès, centraliser la logique métier)
-   ↓
+
+## Architecture du projet
+
+### Flux de données (MVC simplifié)
+
+
+JavaScript (fetch)
+        ↓
+Controller
+(sécurisation des accès & logique métier)
+        ↓
 Model (PDO)
-   ↓
+        ↓
 Base de données
+
+
+
+## Autoloader
+
+**Note importante**
+
+L’autoloader du projet est configuré pour charger **uniquement les classes internes** appartenant au namespace : App
+
+
+
+## Base de données
+
+### Migration des tables
+
+Pour créer l’ensemble des tables de la base de données :
+
+***
+php migrate
+***
+
+
+### Peuplement de la base (Seeder)
+
+Pour insérer des données de test :
+
+***
+php seed.php
+***
+
+---
+
+## Accès au tableau de bord Administrateur
+
+Le tableau de bord administrateur est accessible à l’adresse suivante :
+
+***
+/admin
+***
+
+
