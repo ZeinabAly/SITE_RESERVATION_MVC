@@ -12,6 +12,13 @@ php -S localhost:8000
 
 ### 2- Compiler les styles avec Tailwind CSS
 
+Installer les dépendances
+
+***
+npm i 
+****
+
+
 Le projet utilise **Tailwind CSS** comme seul framework CSS.
 
 Le watch Tailwind a été simplifié via le script suivant :
