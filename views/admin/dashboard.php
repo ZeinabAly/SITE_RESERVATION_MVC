@@ -5,7 +5,7 @@
 
         <div class="bg-white p-5 rounded-lg shadow border-l-4 border-blue-500">
             <p class="text-sm text-gray-500">Utilisateurs</p>
-            <p class="text-2xl font-bold">128</p>
+            <p class="text-2xl font-bold">20</p>
         </div>
 
         <div class="bg-white p-5 rounded-lg shadow border-l-4 border-green-500">

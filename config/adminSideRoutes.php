@@ -13,43 +13,43 @@ const ADMIN_SIDEBAR_ROUTES = [
     "users" => [
         "name" => "Utilisateurs",
         "icon" => "<i class='fa-solid fa-user'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=users",
     ],
 
     "airports" => [
         "name" => "Aéroports",
         "icon" => "<i class='fa-solid fa-plane-departure'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=airports",
     ],
 
     "airlines" => [
         "name" => "Compagnies aériennes",
         "icon" => "<i class='fa-solid fa-plane'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=airlines",
     ],
 
     "flights" => [
         "name" => "Vols",
         "icon" => "<i class='fa-solid fa-plane-up'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=flights",
     ],
 
     "hotels" => [
         "name" => "Hôtels",
         "icon" => "<i class='fa-solid fa-hotel'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=hotels",
     ],
 
     "rooms" => [
         "name" => "Chambres",
         "icon" => "<i class='fa-solid fa-bed'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=rooms",
     ],
 
     "activities" => [
         "name" => "Activités",
         "icon" => "<i class='fa-solid fa-person-running'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=activities",
     ],
 
     "calendar" => [
@@ -61,31 +61,31 @@ const ADMIN_SIDEBAR_ROUTES = [
     "reservations" => [
         "name" => "Réservations",
         "icon" => "<i class='fa-solid fa-ticket'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=reservations",
     ],
 
     "transactions" => [
         "name" => "Transactions",
         "icon" => "<i class='fa-solid fa-arrow-right-arrow-left'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=transactions",
     ],
 
     "payments" => [
         "name" => "Paiements",
         "icon" => "<i class='fa-solid fa-credit-card'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=paymentss",
     ],
 
     "reviews" => [
         "name" => "Avis",
         "icon" => "<i class='fa-solid fa-star'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=reviews",
     ],
 
     "images" => [
         "name" => "Images",
         "icon" => "<i class='fa-solid fa-image'></i>",
-        "page" => "users/index",
+        "page" => "crud/index?table=images",
     ],
 
     "settings" => [

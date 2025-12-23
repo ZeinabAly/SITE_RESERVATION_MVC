@@ -19,9 +19,9 @@ class UserValidator extends Validator {
         $this->required('phone', $data['phone']);
         $this->unique('phone', $data['phone'], 'users');
         
-        if (isset($data['image'])){
-            $this->image('image', $data['image']);
-        }
+        // if (isset($files['image'])){
+        //     $this->image('image', $files['image']);
+        // }
 
         $this->password('password', $data['password']);
         $this->password_confirm('password_confirm', $data['password_confirm'], $data['password']);

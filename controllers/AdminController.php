@@ -27,4 +27,5 @@ class AdminController extends Model {
     public function destroy(string $table, int $id): void {
         $this->deleteById($table, $id);
     }
+    
 }

@@ -9,9 +9,9 @@
 
 
 
-.active{
-    background-color: var(--white);
-    color: var(--primary);
+.each_route.active{
+    background-color: var(--white1) !important;
+    color: var(--primary) !important;
 }
 
 input.is-invalid {
